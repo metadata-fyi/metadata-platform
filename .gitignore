@@ -8,5 +8,6 @@ data/
 .wrangler/
 __pycache__/
 outputs/
+!packages/api/data/
 packages/api/data/*
 !packages/api/data/vertical-registry.json

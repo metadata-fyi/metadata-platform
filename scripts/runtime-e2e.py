@@ -27,6 +27,7 @@ with tempfile.TemporaryDirectory(prefix='metadata-demo-') as td:
    report={'status':'passed','fixture':'original-empty-demo','verticals':len(entries),'checks':['API ready','all sixteen verticals discovered','anonymous preview response','liveness response'],'command':'npm run test:e2e','upstreamDataDownloaded':False}
    output=ROOT/'outputs/runtime-e2e.json';output.parent.mkdir(exist_ok=True);output.write_text(json.dumps(report,indent=2)+'\n');print(output.read_text())
   finally:
-   os.killpg(process.pid,signal.SIGTERM)
+   try:os.killpg(process.pid,signal.SIGTERM)
+   except ProcessLookupError:pass
    try:process.wait(timeout=15)
    except subprocess.TimeoutExpired:os.killpg(process.pid,signal.SIGKILL);process.wait()
