@@ -20,7 +20,7 @@ with tempfile.TemporaryDirectory(prefix='metadata-demo-') as td:
     except Exception:time.sleep(.5)
    else:raise RuntimeError('demo API did not become ready: '+logfile.read_text()[-1800:])
    status,verticals=get('/v1/verticals');assert status==200
-   entries=verticals if isinstance(verticals,list) else verticals.get('verticals',verticals.get('items',[]))
+   entries=verticals if isinstance(verticals,list) else verticals.get('all',[])
    assert len(entries)==16,verticals
    status,preview=get('/v1/preview');assert status==200
    status,liveness=get('/health');assert status==200
