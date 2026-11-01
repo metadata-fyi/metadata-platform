@@ -1,0 +1,11 @@
+/* A single, quiet crossfade across same-origin page navigation. */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: catalog-fade-out 200ms ease both; }
+::view-transition-new(root) { animation: catalog-fade-in 200ms ease both; }
+@keyframes catalog-fade-out { to { opacity: 0; } }
+@keyframes catalog-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
+html[data-reduced-motion='1']::view-transition-old(root),
+html[data-reduced-motion='1']::view-transition-new(root) { animation: none; }

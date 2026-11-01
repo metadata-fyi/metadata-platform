@@ -1,0 +1,28 @@
+# Metadata hub (static). API discovery also serves /robots.txt on the API host.
+# Canonical site: https://metadata.fyi
+
+User-agent: *
+Allow: /
+Allow: /docs.html
+Allow: /pricing.html
+Allow: /legal.html
+Allow: /stats.html
+Allow: /feedback.html
+Disallow: /settings.html
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://metadata.fyi/sitemap.xml

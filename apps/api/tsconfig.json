@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "types": ["node"],
+    "paths": {
+      "@metadata/api": ["../../packages/api/src/index.ts"],
+      "@metadata/api/*": ["../../packages/api/src/*"]
+    }
+  },
+  "include": ["src"]
+}

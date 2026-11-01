@@ -1,0 +1,28 @@
+{
+  "name": "@metadata/server",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "portless": {
+    "name": "api.metadata",
+    "appPort": 8787
+  },
+  "dependencies": {
+    "@hono/node-server": "^2.1.0",
+    "@metadata/api": "*",
+    "hono": "^4.13.1",
+    "sharp": "^0.35.3",
+    "viem": "^2.47.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

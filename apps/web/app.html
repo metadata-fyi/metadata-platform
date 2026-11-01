@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Metadata App — catalogs &amp; verticals</title>
+    <meta
+      name="description"
+      content="Search anime, manga, games, TCG, figures, POD, board games, soundtracks, consoles, and esports. Prepaid API credits. Agent-ready SKILL.md and llms.txt."
+    />
+    <meta
+      name="keywords"
+      content="metadata API, anime API, manga API, game metadata, TCG API, POD blanks, Nendoroid, agent catalog, open data"
+    />
+    <link rel="canonical" href="https://metadata.fyi/" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="theme-color" content="#0c0c0d" />
+    <meta name="color-scheme" content="dark" />
+    <meta property="og:site_name" content="Metadata" />
+    <meta property="og:title" content="Metadata — catalogs for apps & agents" />
+    <meta
+      property="og:description"
+      content="Multi-vertical public metadata API. Anime, games, cards, merch, soundtracks. Prepaid credits. Built for agents and builders."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://metadata.fyi/" />
+    <meta property="og:image" content="https://metadata.fyi/og-image.png" />
+    <meta property="og:image:alt" content="Metadata logo" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Metadata — catalogs for apps & agents" />
+    <meta
+      name="twitter:description"
+      content="Multi-vertical public metadata API with prepaid credits. Start at /SKILL.md or /llms.txt."
+    />
+    <meta name="twitter:image" content="https://metadata.fyi/og-image.png" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="alternate" type="text/plain" title="llms.txt" href="https://metadata.fyi/llms.txt" />
+    <link rel="alternate" type="text/markdown" title="Agent skill" href="https://metadata.fyi/SKILL.md" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://metadata.fyi/#org",
+            "name": "Metadata",
+            "url": "https://metadata.fyi/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://metadata.fyi/logo.png"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://metadata.fyi/#website",
+            "url": "https://metadata.fyi/",
+            "name": "Metadata",
+            "description": "Public multi-vertical metadata API for apps and agents.",
+            "publisher": { "@id": "https://metadata.fyi/#org" },
+            "inLanguage": "en"
+          },
+          {
+            "@type": "WebAPI",
+            "@id": "https://metadata.fyi/#api",
+            "name": "Metadata API",
+            "description": "Multi-vertical public metadata API for anime, manga, games, POD, TCG, figures, board games, OST, consoles, esports, and comics.",
+            "documentation": "https://metadata.fyi/console",
+            "termsOfService": "https://metadata.fyi/legal",
+            "provider": { "@id": "https://metadata.fyi/#org" },
+            "url": "https://metadata.fyi/",
+            "logo": "https://metadata.fyi/logo.png"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Metadata",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Web",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD",
+              "description": "Discovery free; catalog requires prepaid credits"
+            },
+            "url": "https://metadata.fyi/"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/marketing.ts"></script>
+    <!-- Product hub (vertical selector); apex / is the landing teaser -->
+  </body>
+</html>

@@ -1,0 +1,52 @@
+# Metadata
+> Multi-vertical public metadata API for agents and apps (anime, manga, light novels, games, cartoons, comics, POD, TCG, figures, model kits, plush, board games, fashion, OST, consoles, esports).
+
+Base: https://metadata.fyi (local: http://127.0.0.1:8787)
+Header: X-Metadata-Vertical: {anime|manga|lightnovels|game|cartoons|comics|pod|tcg|figures|modelkits|plush|boardgames|fashion|ost|consoles|esports}
+Also: host {vertical}.metadata.fyi or ?vertical=
+Schemas: docs/SCHEMAS.md
+
+## Start here (agents)
+- /SKILL.md — when and how to call Metadata
+- /llms-full.txt — full endpoint map
+- /openapi.json — machine-readable route list
+- /.well-known/ai-plugin.json — plugin-style discovery
+- /v1/verticals — live verticals + counts
+- /v1/health — liveness for active vertical
+- /v1/sku/{key} — resolve a SKU / style code / collector key (200 unique, 409 ambiguous, 404)
+- POST /v1/sku/resolve — same resolver; use this for namespaced URIs (colons)
+
+## Humans
+- / — hub (vertical selector)
+- /docs.html — playground
+- /pricing.html — credit packs
+- /stats.html — public platform traffic
+- /legal.html — terms / privacy
+- /feedback.html — flag bad data
+
+## Core API
+- GET /v1/sku/{key} — SKU resolve (200 unique / 409 ambiguous / 404). POST /v1/sku/resolve `{key}` or `{keys}` (max 20) for namespaced URIs (Cloudflare rejects colons in GET paths). Batch is HTTP 200 `{ results }`.
+- GET /v1/datasets · GET /v1/datasets/{id} · GET /v1/export/dataset/{id} (prepaid identity summary)
+- GET /v1/search?q=
+- GET /v1/series · /v1/series/{id} · /v1/characters/{id}
+- GET /v1/products · /v1/print-methods (pod)
+- GET /v1/tcg/cards · /v1/tcg/sets
+- GET /v1/market/coverage · /v1/market/status · /v1/market/search · /v1/market/items/{id} · /v1/market/quotes/{id} · /v1/market/history/{id} — quotes are venue medians (`confidence`), not solds
+- GET|POST /mcp — MCP streamable HTTP (Muse, Phantasy, Claude). GET /.well-known/mcp.json
+- GET /v1/figures/items · /v1/modelkits/items · /v1/plush/items
+- GET /v1/boardgames · /v1/ost/albums · /v1/consoles
+- GET /v1/esports/titles|leagues|teams|players
+- GET /v1/stats — platform metrics (no addresses)
+- POST /feedback — corrections queue (not catalog write)
+- POST /v1/contribute — suggest rows (queued)
+
+## Auth & billing
+- Free **preview** (teaser): fixed sample per vertical in production at GET /v1/preview; arbitrary queries require payment. Development/staging use an IP quota.
+- Full catalog: prepaid credits + X-Wallet-Address + X-Metadata-Session (balance > 0). Sign GET /v1/pay/auth/nonce then POST /v1/pay/auth/verify. Successful catalog reads debit at least 1 credit per returned data unit; response bytes and export minimums can increase the charge.
+- Discovery (health, verticals, preview, SKILL, payment packs/quote/methods, feedback) open without credits; Stripe Checkout and wallet accounts require a signed session
+- Pay: GET /v1/pay/quote · POST /v1/pay/claim (no session) · Stripe/Reown — see SKILL.md + docs/ACCESS.md
+- x402: optional X-PAYMENT on zero-cost catalog reads when X402_ENABLED; exports remain prepaid-only
+
+## Notes
+- Public-internet metadata only; see /legal.html
+- Flag errors via POST /feedback — do not invent silent fixes

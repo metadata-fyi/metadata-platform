@@ -1,0 +1,11 @@
+name = "metadata-demo"
+main = "edge/src/worker.ts"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+[assets]
+directory = "apps/web/dist"
+binding = "ASSETS"
+
+[vars]
+API_ORIGIN = "http://127.0.0.1:8787"

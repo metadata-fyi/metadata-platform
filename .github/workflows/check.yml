@@ -1,0 +1,27 @@
+name: runtime
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run demo:bootstrap
+      - run: npm run security:policy
+      - run: npm run check
+      - run: npm run test:e2e
+      - run: npm audit --audit-level=high
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: runtime-acceptance-${{ github.sha }}
+          path: outputs/*.json
+          retention-days: 14

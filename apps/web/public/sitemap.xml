@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://metadata.fyi/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://metadata.fyi/app</loc><changefreq>daily</changefreq><priority>0.95</priority></url>
+  <url><loc>https://metadata.fyi/console</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://metadata.fyi/pricing</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://metadata.fyi/stats</loc><changefreq>hourly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://metadata.fyi/legal</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://metadata.fyi/feedback</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://metadata.fyi/console/anime</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://metadata.fyi/console/manga</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://metadata.fyi/console/lightnovels</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://metadata.fyi/console/game</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://metadata.fyi/console/cartoons</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://metadata.fyi/console/comics</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://metadata.fyi/console/pod</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://metadata.fyi/console/tcg</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://metadata.fyi/console/figures</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://metadata.fyi/console/modelkits</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://metadata.fyi/console/plush</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://metadata.fyi/console/boardgames</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://metadata.fyi/console/ost</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://metadata.fyi/console/consoles</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://metadata.fyi/console/esports</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+</urlset>

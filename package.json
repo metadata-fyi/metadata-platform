@@ -1,0 +1,57 @@
+{
+  "name": "metadata",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "license": "MIT",
+  "description": "Metadata \u2014 multi-vertical metadata API (prepaid USDG credits, Reown Pay, x402)",
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "edge"
+  ],
+  "scripts": {
+    "dev": "concurrently -n api,web -c cyan,magenta \"npm run dev -w @metadata/server\" \"npm run dev -w @metadata/web\"",
+    "dev:named": "concurrently -n api,web -c cyan,magenta \"portless api.metadata npm run dev -w @metadata/server\" \"portless metadata npm run dev -w @metadata/web\"",
+    "dev:api": "npm run dev -w @metadata/server",
+    "dev:web": "npm run dev -w @metadata/web",
+    "start": "npm run start -w @metadata/server",
+    "build": "npm run security:policy && npm run build -w @metadata/web",
+    "typecheck": "node scripts/typecheck.mjs",
+    "lint": "biome lint packages/api/src apps/api/src apps/web/src edge/src scripts tests",
+    "package:check": "node scripts/check-package-boundary.mjs",
+    "discovery:check": "node scripts/check-discovery.mjs",
+    "edge:check": "npm run check -w @metadata/edge && node scripts/check-web-artifacts.mjs",
+    "test:browser": "node scripts/browser-smoke.mjs",
+    "security:policy": "node scripts/sync-security-policy.mjs",
+    "security:policy:check": "node scripts/sync-security-policy.mjs --check",
+    "demo:bootstrap": "python3 scripts/bootstrap-demo.py",
+    "check": "npm run security:policy:check && npm run typecheck && npm run build && npm run edge:check",
+    "test:e2e": "python3 scripts/runtime-e2e.py"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.8",
+    "@iconify-json/mingcute": "^1.2.7",
+    "@playwright/test": "^1.64.0",
+    "@types/better-sqlite3": "^9.6.0",
+    "axios": "1.20.0",
+    "concurrently": "^9.1.0",
+    "vitest": "^4.1.10"
+  },
+  "overrides": {
+    "sharp": "0.35.5",
+    "axios": "1.20.0",
+    "nanoid": "3.3.18",
+    "postcss": "8.5.26",
+    "@coinbase/cdp-sdk": {
+      "axios": "1.20.0"
+    },
+    "zod": "4.6.6"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "allowScripts": {
+    "better-sqlite3@13.0.3": true
+  }
+}

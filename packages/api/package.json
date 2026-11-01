@@ -1,0 +1,42 @@
+{
+  "name": "@metadata/api",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Metadata \u2014 multi-vertical public anime/game/manga metadata API with x402 + credits.",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./hono": "./src/hono.ts",
+    "./client": "./src/client.ts",
+    "./types": "./src/types.ts",
+    "./catalog": "./src/catalog.ts",
+    "./verticals": "./src/verticals.ts",
+    "./packs": "./src/packs.ts",
+    "./input-limits": "./src/input-limits.ts"
+  },
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "stripe": "^22.6.2"
+  },
+  "peerDependencies": {
+    "hono": "^4.13.1",
+    "viem": "^2.0.0"
+  },
+  "keywords": [
+    "metadata",
+    "anime",
+    "manga",
+    "game",
+    "api",
+    "hono",
+    "x402",
+    "open-data"
+  ],
+  "files": [
+    "src/client.ts",
+    "src/*types.ts",
+    "README.md",
+    "LICENSE"
+  ]
+}

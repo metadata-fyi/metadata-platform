@@ -1,0 +1,132 @@
+# Metadata — full agent index
+
+## What it is
+Open multi-vertical catalog API: series/characters (anime, manga, game, cartoons, comics, light novels),
+POD blanks + print methods, TCG cards, figures/Nendoroids, model kits, plush, board games, soundtracks (OST),
+consoles (hardware), esports (titles/leagues/teams/players).
+MIT. Fixed free sample per vertical in production, then prepaid credits for arbitrary catalog queries. Development/staging use an IP quota.
+Not a free plan. Discovery, payment packs/quote/methods, and GET /v1/preview are open. Stripe Checkout and wallet account routes require a signed session. See docs/ACCESS.md · SKILL.md.
+
+Canonical site: https://metadata.fyi
+API / agent docs: https://metadata.fyi/SKILL.md · https://metadata.fyi/llms.txt
+
+## Vertical selection
+- Header X-Metadata-Vertical
+- Subdomain {vertical}.metadata.fyi
+- Query ?vertical=
+
+### Live verticals
+| id | primary resources |
+|----|-------------------|
+| anime | series, characters, seasons on series |
+| manga | series, characters, volumes on series |
+| lightnovels | series, characters, volumes |
+| game | series, characters |
+| cartoons | series, characters (western animation) |
+| comics | western comics series + characters (not manga) |
+| pod | products, brands, providers, print-methods, affiliates |
+| tcg | games, sets, cards |
+| figures | makers, lines, items |
+| modelkits | makers, lines, items (Gunpla / plamo) |
+| plush | makers, lines, items (fumo etc.) |
+| boardgames | games, publishers |
+| ost | albums, artists (linked to anime/game via seriesSlug) |
+| consoles | hardware platforms (home/handheld/arcade) — NOT under game |
+| esports | titles, leagues, teams, players |
+| fashion | footwear, apparel, outerwear, watches |
+
+## Endpoints (prefix /v1 recommended)
+
+### Global
+- GET /  — service index + docs map
+- GET /v1/verticals
+- GET /v1/datasets — first-party verticals + accepted listings (open)
+- GET /v1/datasets/{id} — gated listing
+- GET /v1/export/dataset/{id} — prepaid identity summary (counts only)
+- GET /v1/sku/{key}  (also GET /v1/sku?q=) — canonical SKU resolve; 200 unique / 409 ambiguous / 404
+- POST /v1/sku/resolve — `{ key }` or `{ keys }` (max 20); batch is HTTP 200 `{ results }` even when items are NOT_FOUND/AMBIGUOUS. Prefer POST for namespaced URIs (Cloudflare rejects colons in GET paths).
+- GET /v1/market/coverage|status|search|items/{id}|quotes/{id}|history/{id}
+- GET /v1/fashion/items
+- GET /v1/health
+- GET|POST /mcp — MCP streamable HTTP (Muse, Phantasy, Claude)
+- GET /v1/search?q=
+- GET /v1/stats — public platform traffic
+- GET /v1/affiliates?vertical=&configured=
+- POST /feedback  (operator queue; same as /feedback.html — not catalog)
+- POST /v1/contribute — optional wallet (0x + 40 hex); kind dataset needs title + wallet; queued, not auto-merged
+- GET /v1/pay/packs  GET /v1/pay/quote  POST /v1/pay/claim (packs/quote are open; claim does not require a session)
+- GET /v1/pay/balance?wallet= (requires a matching X-Metadata-Session; wallet query/header optional)
+- POST /v1/pay/stripe/checkout — signed X-Metadata-Session; packId, usdg, or amount
+- GET /v1/pay/account  GET /v1/pay/entitlements — signed X-Metadata-Session
+- POST /v1/pay/account/delete — signed X-Metadata-Session; confirm: DELETE
+- POST /v1/pay/auth/logout — revoke supplied session
+- GET /v1/pay/auth/nonce?wallet=  POST /v1/pay/auth/verify — catalog uses X-Wallet-Address + X-Metadata-Session
+- GET /v1/export/character/{id}  (prepaid credits + session; charge after found)
+
+### Media verticals
+- GET /v1/series  GET /v1/series/{id}  GET /v1/series/{id}/characters  GET /v1/series/{id}/logos
+- GET /v1/characters  GET /v1/characters/{id}
+- GET /v1/logos?series=
+- Series and character detail include merch joins (figures, plush, modelkits, ost, esports) by exact seriesSlug
+
+### POD
+- GET /v1/products  GET /v1/products/{id}
+- GET /v1/brands  GET /v1/providers  GET /v1/print-methods
+
+### TCG
+- GET /v1/tcg/games  GET /v1/tcg/sets  GET /v1/tcg/cards  GET /v1/tcg/cards/{id}
+- GET /v1/cards  (alias → tcg)
+
+### Figures / model kits / plush
+- GET /v1/figures/makers|lines|items  GET /v1/figures/items/{id}
+- GET /v1/modelkits/makers|lines|items  GET /v1/modelkits/items/{id}
+Model-kit q includes Japanese titleNative, JAN and publisherBrand. publisherManualIds are separate from manufacturer productCode. seriesMatchType identifies catalog-title, parent-franchise, or original-line associations.
+- GET /v1/plush/makers|lines|items  GET /v1/plush/items/{id}
+- GET /v1/items  (alias → figures unless vertical=plush)
+Figure q searches JAN, publisherProductCode, and boxNumber. Funko item codes and box numbers are distinct; Good Smile publisher SKUs are distinct from Nendoroid numbers. Release dates may have month precision. publisherReleaseInformation preserves source release/rerelease text.
+
+### Board games
+- GET /v1/boardgames  GET /v1/boardgames/{id}
+- GET /v1/publishers  GET /v1/publishers/{id}
+
+### OST
+- GET /v1/ost/albums?media=anime|game&series=&q=&type=
+- GET /v1/ost/albums/{id}
+- GET /v1/ost/artists  GET /v1/ost/artists/{id}
+
+### Consoles
+- GET /v1/consoles?formFactor=&generation=&manufacturer=&q=
+- GET /v1/consoles/{id}
+- GET /v1/manufacturers  GET /v1/manufacturers/{id}
+
+### Esports
+- GET /v1/esports/titles  GET /v1/esports/titles/{id}
+- GET /v1/esports/leagues  GET /v1/esports/teams  GET /v1/esports/players
+
+### Comics / cartoons / light novels
+- Media series/characters routes with matching X-Metadata-Vertical
+
+### Schemas
+- docs/SCHEMAS.md — full TypeScript data shapes
+
+## Data quality (not catalog API)
+Human form: GET /feedback.html
+Agent + form share: POST /feedback
+  kind: correction|missing|spam|dmca|other
+  vertical, entityKind, entityId, message (required)
+  field, currentValue, suggestedValue, sources[], contributor, agent{name,url}
+→ 202 { id, persisted: true, status: "queued" }
+Legacy alias: POST /v1/report (deprecated)
+
+## Agent files
+- /SKILL.md
+- /llms.txt
+- /llms-full.txt
+- /openapi.json
+- /robots.txt
+- /sitemap.xml
+- /.well-known/ai-plugin.json
+
+Azuki TCG: gameId=azuki is available through the existing /v1/tcg/games, /v1/tcg/sets, /v1/tcg/cards, and facet routes. English official gallery variants preserve gameplay (IKZ cost, attack, health, gate power, abilities, card text, errata, and publisher product memberships). Collector-code groups differ from sealed-product records; gallery coverage does not certify every physical printing. Announced products can have no published card checklist.
+
+Azuki set/product descriptions retain official contents and configurations. Set search also matches descriptions and sourceIds (including publisherSku); unknown checklists remain incomplete.
